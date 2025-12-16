@@ -9,6 +9,7 @@ dist/
 # Dependencies / tooling
 node_modules/
 coverage/
+.venv/
 
 # Logs and env
 *.log

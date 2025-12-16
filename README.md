@@ -16,15 +16,19 @@ A lightweight Manifest V3 extension that hunts down DOM nodes causing horizontal
 Changes to `content.js` are reflected after reloading the extension (click the refresh icon in `chrome://extensions`).
 
 ## Packaging for the Chrome Web Store
-1. Ensure the repository contains only the files needed for the build. Typically: `manifest.json`, `content.js`, `icon16.png`, `icon48.png`, `icon128.png`, `README.md`, and `AGENTS.md`.
+1. Ensure the repository contains only the files needed for the build. Typically: `manifest.json`, `content.js`, `icon16.png`, `icon48.png`, `icon128.png`, `README.md`, `AGENTS.md`, `LICENSE`, and `CONTRIBUTING.md`.
 2. From the project root, create a production ZIP (macOS/Linux example):
    ```sh
-   zip -r overflow-fixer-1.0.zip manifest.json content.js icon16.png icon48.png icon128.png README.md AGENTS.md
+   zip -r overflow-fixer-1.0.zip manifest.json content.js icon16.png icon48.png icon128.png README.md AGENTS.md LICENSE CONTRIBUTING.md
    ```
+   or simply run `make package` to emit `dist/overflow-fixer-<version>.zip`.
 3. Visit the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/) and choose **New Item**.
 4. Upload the ZIP from step 2, add your store listing details (screenshots, short/long descriptions, category), and submit for review.
 
 Chrome will warn you if any required metadata (icons, descriptions, etc.) is missing, so double-check the listing information before publishing.
+
+### Screenshots
+The `screenshots/` directory contains 1280×800 PNGs ready for the listing image requirement. Capture fresh screenshots or update the placeholders whenever UI changes.
 
 ## Agents
 See `AGENTS.md` for a short description of the responsibilities handled by the automated agents within this project.

@@ -15,18 +15,13 @@ A lightweight Manifest V3 extension that hunts down DOM nodes causing horizontal
 
 Changes to `content.js` are reflected after reloading the extension (click the refresh icon in `chrome://extensions`).
 
-## Packaging for the Chrome Web Store
-1. Run `make package` from the repo root to generate an upload-ready ZIP in `dist/`.
-2. Visit the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/), click **New Item**, and upload the ZIP along with listing metadata (descriptions, icons, and the screenshots in `screenshots/`).
-3. Paste the text from `PERMISSION_JUSTIFICATION.md` into the permissions justification prompt when asked, then submit for review.
-
-Chrome will warn you if any required metadata (icons, descriptions, etc.) is missing, so double-check the listing information before publishing.
-
-### Screenshots
-The `screenshots/` directory contains 1280×800 PNGs ready for the listing image requirement. Capture fresh screenshots or update the placeholders whenever UI changes.
+## Packaging for Personal Use
+1. Run `make package` from the repo root to generate a ZIP in `dist/` that contains everything needed for sideloading.
+2. Share the ZIP (or extract it) and load the folder via **Load unpacked** in `chrome://extensions` on any device where you want the same setup.
+3. Keep the packaged archive handy as a personal backup so you can quickly re-install without re-downloading the repo.
 
 ## Host Permission Rationale
-The extension requests `<all_urls>` so it can run immediately on any page that unexpectedly exhibits horizontal overflow. Alternatives like `activeTab` or a tight host allowlist would force users to manually trigger the fix on every site or limit it to a few domains, defeating the goal of silently keeping all browsing scroll-clean. See `PERMISSION_JUSTIFICATION.md` for the explanation used in the Chrome Web Store submission.
+The extension requests `<all_urls>` so it can run immediately on any page that unexpectedly exhibits horizontal overflow. Alternatives like `activeTab` or a tight host allowlist would force users to manually trigger the fix on every site or limit it to a few domains, defeating the goal of silently keeping all browsing scroll-clean. See `PERMISSION_JUSTIFICATION.md` for additional context.
 
 ## Agents
 See `AGENTS.md` for a short description of the responsibilities handled by the automated agents within this project.

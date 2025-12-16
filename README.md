@@ -30,5 +30,8 @@ Chrome will warn you if any required metadata (icons, descriptions, etc.) is mis
 ### Screenshots
 The `screenshots/` directory contains 1280×800 PNGs ready for the listing image requirement. Capture fresh screenshots or update the placeholders whenever UI changes.
 
+## Host Permission Rationale
+The extension requests `<all_urls>` so it can run immediately on any page that unexpectedly exhibits horizontal overflow. Alternatives like `activeTab` or a tight host allowlist would force users to manually trigger the fix on every site or limit it to a few domains, defeating the goal of silently keeping all browsing scroll-clean. See `PERMISSION_JUSTIFICATION.md` for the explanation used in the Chrome Web Store submission.
+
 ## Agents
 See `AGENTS.md` for a short description of the responsibilities handled by the automated agents within this project.

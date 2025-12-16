@@ -1,0 +1,15 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Build artifacts / packages
+dist/
+*.zip
+
+# Dependencies / tooling
+node_modules/
+coverage/
+
+# Logs and env
+*.log
+.env

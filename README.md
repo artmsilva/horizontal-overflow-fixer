@@ -21,7 +21,7 @@ Changes to `content.js` are reflected after reloading the extension (click the r
 3. Keep the packaged archive handy as a personal backup so you can quickly re-install without re-downloading the repo.
 
 ## Host Permission Rationale
-The extension requests `<all_urls>` so it can run immediately on any page that unexpectedly exhibits horizontal overflow. Alternatives like `activeTab` or a tight host allowlist would force users to manually trigger the fix on every site or limit it to a few domains, defeating the goal of silently keeping all browsing scroll-clean. See `PERMISSION_JUSTIFICATION.md` for additional context.
+The extension requests `<all_urls>` so it can run immediately on any page that unexpectedly exhibits horizontal overflow. Alternatives like `activeTab` or a tight host allowlist would force users to manually trigger the fix on every site or limit it to a few domains, defeating the goal of silently keeping all browsing scroll-clean.
 
 ## Agents
 See `AGENTS.md` for a short description of the responsibilities handled by the automated agents within this project.

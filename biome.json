@@ -1,0 +1,11 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
+  "extends": ["biome:recommended"],
+  "formatter": {
+    "enabled": true,
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": true
+  }
+}

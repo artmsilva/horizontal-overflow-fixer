@@ -16,6 +16,7 @@ A lightweight Manifest V3 extension that hunts down DOM nodes causing horizontal
 Changes to `content.js` are reflected after reloading the extension (click the refresh icon in `chrome://extensions`).
 
 ### Linting, Formatting, and Hooks
+- Run `npm install` once to pull down the Biome CLI (dev dependency).
 - Run `make format` to apply Biome formatting across the repo and `make lint` to check for issues using `npx @biomejs/biome`.
 - Execute `make hooks` once to install a standard Git pre-commit hook that automatically formats and lints before every commit (it simply calls the Make targets above).
 

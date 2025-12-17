@@ -17,9 +17,7 @@
 
     const badge = document.createElement("div");
     badge.id = badgeId;
-    badge.textContent = hasFixes
-      ? "🛠️ Scrollbar smashed"
-      : "✅ Checked for overflow";
+    badge.textContent = hasFixes ? "🛠️ Scrollbar smashed" : "✅ Checked for overflow";
     badge.style.position = "fixed";
     badge.style.bottom = "16px";
     badge.style.right = "16px";
@@ -28,7 +26,7 @@
     badge.style.background = "rgba(32, 33, 36, 0.85)";
     badge.style.color = "white";
     badge.style.fontSize = "12px";
-    badge.style.fontFamily = "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif";
+    badge.style.fontFamily = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
     badge.style.zIndex = "2147483647"; // stay on top of the page
     badge.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.25)";
     badge.style.pointerEvents = "none"; // avoid impacting page interactions
@@ -46,9 +44,7 @@
   // 1. Initial quick fix to kill the main scrollbar while we find the root cause
   document.body.style.overflowX = "hidden";
 
-  console.log(
-    `[Vibe Code Scroll Fix] Starting analysis for viewport width: ${viewportWidth}px`,
-  );
+  console.log(`[Vibe Code Scroll Fix] Starting analysis for viewport width: ${viewportWidth}px`);
 
   // Get all elements on the page
   const allElements = document.querySelectorAll("*");
@@ -81,15 +77,13 @@
           `[Vibe Code Fixed] Element ID/Tag: ${element.id || element.tagName} | Overflow Width: ${Math.round(rect.right - viewportWidth)}px`,
         );
       }
-    } catch (e) {
+    } catch (_error) {
       // Safely skip elements that throw errors (e.g., hidden SVGs or foreign objects)
       // console.warn('Skipped element due to error:', e.message);
     }
   });
 
-  console.log(
-    `[Vibe Code Scroll Fix] Finished. Total elements constrained: ${fixedElementsCount}`,
-  );
+  console.log(`[Vibe Code Scroll Fix] Finished. Total elements constrained: ${fixedElementsCount}`);
 
   if (fixedElementsCount > 0) {
     // Double-check the body overflow setting after fixing elements
@@ -100,9 +94,7 @@
       );
       document.body.style.overflowX = "hidden";
     } else {
-      console.log(
-        "[Vibe Code Scroll Fix] Success! The page should now be scrollbar-free.",
-      );
+      console.log("[Vibe Code Scroll Fix] Success! The page should now be scrollbar-free.");
     }
   } else {
     // If nothing was found, but a scrollbar still exists, it's likely a persistent body overflow

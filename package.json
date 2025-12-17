@@ -1,0 +1,29 @@
+{
+  "name": "overflow-fixer",
+  "version": "1.0.0",
+  "description": "A lightweight Manifest V3 extension that hunts down DOM nodes causing horizontal overflow and constrains them so pages stop spawning annoying horizontal scrollbars. When the script runs, it flashes a tiny emoji badge so you know the fix did its thing.",
+  "main": "content.js",
+  "scripts": {
+    "lint": "biome lint .",
+    "format": "biome format --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artmsilva/horizontal-overflow-fixer.git"
+  },
+  "keywords": [
+    "chrome-extension",
+    "scrollbar",
+    "overflow"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/artmsilva/horizontal-overflow-fixer/issues"
+  },
+  "homepage": "https://github.com/artmsilva/horizontal-overflow-fixer#readme",
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.9"
+  }
+}

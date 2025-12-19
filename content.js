@@ -5,7 +5,6 @@
 (function fixHorizontalOverflow() {
   const viewportWidth = window.innerWidth;
   let fixedElementsCount = 0;
-  const overflowFixStyle = "important-overflow-fix-vibe-code";
   const badgeId = "overflow-fixer-emoji-badge";
 
   function showBadge(hasFixes) {
@@ -41,74 +40,34 @@
     }, 3000);
   }
 
-  // 1. Initial quick fix to kill the main scrollbar while we find the root cause
-  document.body.style.overflowX = "hidden";
-
   console.log(`[Vibe Code Scroll Fix] Starting analysis for viewport width: ${viewportWidth}px`);
 
-  // Get all elements on the page
-  const allElements = document.querySelectorAll("*");
+  // Only check body and html elements for overflow
+  const elementsToCheck = [document.documentElement, document.body];
 
-  allElements.forEach((element) => {
+  elementsToCheck.forEach((element) => {
+    if (!element) return;
+
     try {
-      // Check if the element already has the fix applied
-      if (element.classList.contains(overflowFixStyle)) {
-        return;
-      }
-
-      // Get the bounding box relative to the viewport
-      const rect = element.getBoundingClientRect();
-
-      // Check if the element's right edge is past the viewport edge (with a small tolerance of 5px)
-      if (rect.right > viewportWidth + 5) {
-        // Element is causing overflow! Apply the fix.
-
-        // Add a class for tracking and future exclusion
-        element.classList.add(overflowFixStyle);
-
-        // Apply CSS properties to contain the width and hide internal overflow
+      // Check if horizontal overflow exists
+      if (element.scrollWidth > window.innerWidth) {
+        // Apply overflow fix
+        element.style.setProperty("overflow-x", "hidden", "important");
         element.style.setProperty("max-width", "100%", "important");
         element.style.setProperty("box-sizing", "border-box", "important");
-        element.style.setProperty("overflow-x", "hidden", "important");
 
         fixedElementsCount++;
 
         console.log(
-          `[Vibe Code Fixed] Element ID/Tag: ${element.id || element.tagName} | Overflow Width: ${Math.round(rect.right - viewportWidth)}px`,
+          `[Vibe Code Fixed] Element: ${element.tagName} | Overflow Width: ${Math.round(element.scrollWidth - window.innerWidth)}px`,
         );
       }
     } catch (_error) {
-      // Safely skip elements that throw errors (e.g., hidden SVGs or foreign objects)
-      // console.warn('Skipped element due to error:', e.message);
+      // Safely skip if error occurs
     }
   });
 
   console.log(`[Vibe Code Scroll Fix] Finished. Total elements constrained: ${fixedElementsCount}`);
-
-  if (fixedElementsCount > 0) {
-    // Double-check the body overflow setting after fixing elements
-    document.body.style.overflowX = "auto";
-    if (document.body.scrollWidth > window.innerWidth) {
-      console.log(
-        "[Vibe Code Scroll Fix] WARNING: Scrollbar might persist. Reverting body overflow to hidden.",
-      );
-      document.body.style.overflowX = "hidden";
-    } else {
-      console.log("[Vibe Code Scroll Fix] Success! The page should now be scrollbar-free.");
-    }
-  } else {
-    // If nothing was found, but a scrollbar still exists, it's likely a persistent body overflow
-    if (document.body.scrollWidth > window.innerWidth) {
-      document.body.style.overflowX = "hidden";
-      console.log(
-        "[Vibe Code Scroll Fix] No individual offenders found, setting body overflow-x: hidden as a final measure.",
-      );
-    } else {
-      console.log(
-        "[Vibe Code Scroll Fix] No immediate horizontal overflow issues detected on this page.",
-      );
-    }
-  }
 
   showBadge(fixedElementsCount > 0);
 })();

@@ -1,6 +1,6 @@
 VERSION := $(shell python3 -c "import json;print(json.load(open('manifest.json'))['version'])")
 PACKAGE := dist/overflow-fixer-$(VERSION).zip
-FILES := manifest.json content.js icon16.png icon48.png icon128.png README.md AGENTS.md LICENSE CONTRIBUTING.md
+FILES := manifest.json content.js popup.html popup.js icon16.png icon48.png icon128.png README.md AGENTS.md LICENSE CONTRIBUTING.md
 HOOK_FILE := .git/hooks/pre-commit
 
 .PHONY: package clean lint format hooks
@@ -20,10 +20,6 @@ format:
 
 hooks:
 	@mkdir -p .git/hooks
-	@cat <<'EOF' > $(HOOK_FILE)
-#!/bin/sh
-set -e
-make format lint
-EOF
+	@printf '%s\n' '#!/bin/sh' 'set -e' 'make format lint' > $(HOOK_FILE)
 	@chmod +x $(HOOK_FILE)
 	@echo "Installed git pre-commit hook -> $(HOOK_FILE)"

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overflow Fixer Test Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+      min-height: 100vh;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .description {
+      color: #666;
+      margin-bottom: 30px;
+    }
+    .test-section {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .test-section h2 {
+      font-size: 16px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .test-section p {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    .badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    .badge-conservative { background: #dcfce7; color: #166534; }
+    .badge-moderate { background: #fef3c7; color: #92400e; }
+    .badge-aggressive { background: #fee2e2; color: #991b1b; }
+
+    /* Test Case: 100vw width */
+    .test-100vw {
+      width: 100vw;
+      background: #ef4444;
+      color: white;
+      padding: 20px;
+      margin-left: -20px;
+    }
+
+    /* Test Case: Transform */
+    .test-transform-container {
+      overflow: visible;
+      position: relative;
+      height: 60px;
+    }
+    .test-transform {
+      width: 200px;
+      height: 50px;
+      background: #f59e0b;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(calc(100vw - 100px));
+    }
+
+    /* Test Case: Negative Margin */
+    .test-negative-margin {
+      width: calc(100% + 100px);
+      margin-left: -50px;
+      background: #8b5cf6;
+      color: white;
+      padding: 20px;
+    }
+
+    /* Test Case: Flexbox with gap */
+    .test-flexbox {
+      display: flex;
+      gap: 20px;
+    }
+    .test-flexbox > div {
+      flex: 0 0 30%;
+      background: #06b6d4;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Test Case: Absolute positioning */
+    .test-absolute-container {
+      position: relative;
+      height: 80px;
+      background: #e5e5e5;
+      overflow: visible;
+    }
+    .test-absolute {
+      position: absolute;
+      right: -150px;
+      top: 10px;
+      width: 200px;
+      height: 60px;
+      background: #ec4899;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Test Case: Fixed positioning */
+    .test-fixed {
+      position: fixed;
+      right: -100px;
+      top: 50%;
+      width: 150px;
+      height: 50px;
+      background: #14b8a6;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    /* Dynamic content container */
+    #dynamic-container {
+      min-height: 60px;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+    }
+    .dynamic-element {
+      width: calc(100% + 200px);
+      background: #22c55e;
+      color: white;
+      padding: 20px;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    button.secondary {
+      background: #6b7280;
+    }
+    button.secondary:hover {
+      background: #4b5563;
+    }
+
+    .controls {
+      margin-bottom: 30px;
+      padding: 15px;
+      background: #1a1a1a;
+      border-radius: 8px;
+      color: white;
+    }
+    .controls p {
+      margin: 0 0 10px 0;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Overflow Fixer Test Page</h1>
+  <p class="description">
+    This page contains various overflow scenarios to test the extension's detection modes.
+    Open the browser console to see which elements get fixed.
+  </p>
+
+  <div class="controls">
+    <p>Open DevTools console and watch for "[Overflow Fixer]" logs. Toggle modes in the extension popup.</p>
+    <button onclick="location.reload()">Reload Page</button>
+    <button class="secondary" onclick="document.querySelectorAll('.overflow-fixer-applied').forEach(e => e.style.outline = '3px solid red')">
+      Highlight Fixed Elements
+    </button>
+  </div>
+
+  <!-- Test 1: 100vw width -->
+  <div class="test-section">
+    <h2>100vw Width <span class="badge badge-aggressive">Aggressive</span></h2>
+    <p>Element using width: 100vw which includes scrollbar width, causing overflow.</p>
+    <div class="test-100vw">
+      I'm 100vw wide - I cause overflow when there's a scrollbar!
+    </div>
+  </div>
+
+  <!-- Test 2: Transform -->
+  <div class="test-section">
+    <h2>CSS Transform <span class="badge badge-aggressive">Aggressive</span></h2>
+    <p>Element translated off-screen using transform: translateX(). Not caught by scrollWidth.</p>
+    <div class="test-transform-container">
+      <div class="test-transform">Transformed!</div>
+    </div>
+  </div>
+
+  <!-- Test 3: Negative Margin -->
+  <div class="test-section">
+    <h2>Negative Margin <span class="badge badge-aggressive">Aggressive</span></h2>
+    <p>Element with negative left margin extending beyond viewport.</p>
+    <div class="test-negative-margin">
+      I have negative margins pulling me outside the container!
+    </div>
+  </div>
+
+  <!-- Test 4: Flexbox with gap -->
+  <div class="test-section">
+    <h2>Flexbox Overflow <span class="badge badge-moderate">Moderate</span></h2>
+    <p>Four flex items at 30% each plus gaps exceeds 100% width.</p>
+    <div class="test-flexbox">
+      <div>Item 1</div>
+      <div>Item 2</div>
+      <div>Item 3</div>
+      <div>Item 4</div>
+    </div>
+  </div>
+
+  <!-- Test 5: Absolute positioning -->
+  <div class="test-section">
+    <h2>Absolute Positioning <span class="badge badge-aggressive">Aggressive</span></h2>
+    <p>Absolutely positioned element placed off-screen to the right.</p>
+    <div class="test-absolute-container">
+      <div class="test-absolute">I'm off-screen!</div>
+    </div>
+  </div>
+
+  <!-- Test 6: Fixed positioning (always visible) -->
+  <div class="test-fixed">Fixed off-screen</div>
+
+  <!-- Test 7: Dynamic content -->
+  <div class="test-section">
+    <h2>Dynamic Content <span class="badge badge-moderate">Moderate</span></h2>
+    <p>Test MutationObserver by injecting overflow-causing element after page load.</p>
+    <div id="dynamic-container">
+      Click button to inject element
+    </div>
+    <div style="margin-top: 15px;">
+      <button onclick="injectDynamic()">Add Overflow Element</button>
+      <button class="secondary" onclick="clearDynamic()">Clear</button>
+    </div>
+  </div>
+
+  <script>
+    // biome-ignore lint/correctness/noUnusedVariables: called from onclick
+    function injectDynamic() {
+      const container = document.getElementById('dynamic-container');
+      container.innerHTML = '<div class="dynamic-element">I was injected dynamically and cause overflow!</div>';
+    }
+
+    // biome-ignore lint/correctness/noUnusedVariables: called from onclick
+    function clearDynamic() {
+      const container = document.getElementById('dynamic-container');
+      container.innerHTML = 'Click button to inject element';
+    }
+  </script>
+</body>
+</html>

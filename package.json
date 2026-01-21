@@ -1,6 +1,6 @@
 {
   "name": "overflow-fixer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A lightweight Manifest V3 extension that hunts down DOM nodes causing horizontal overflow and constrains them so pages stop spawning annoying horizontal scrollbars. When the script runs, it flashes a tiny emoji badge so you know the fix did its thing.",
   "main": "content.js",
   "scripts": {

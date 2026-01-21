@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      width: 240px;
+      padding: 16px;
+      background: #1a1a1a;
+      color: #fff;
+    }
+    h1 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .mode-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      border: 1px solid transparent;
+    }
+    .mode-option:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .mode-option.selected {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .mode-option input[type="radio"] {
+      margin-top: 2px;
+      accent-color: #4ade80;
+    }
+    .mode-info {
+      flex: 1;
+    }
+    .mode-name {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .mode-desc {
+      font-size: 11px;
+      color: #888;
+      line-height: 1.4;
+    }
+    .badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+    }
+    .badge-safe { background: #166534; color: #4ade80; }
+    .badge-balanced { background: #854d0e; color: #fbbf24; }
+    .badge-chaos { background: #991b1b; color: #f87171; }
+    .footer {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 11px;
+      color: #666;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Overflow Fixer Mode</h1>
+
+  <label class="mode-option" data-mode="conservative">
+    <input type="radio" name="mode" value="conservative">
+    <div class="mode-info">
+      <div class="mode-name">Conservative <span class="badge badge-safe">Safe</span></div>
+      <div class="mode-desc">Fixes body/html only. Lowest risk of breaking layouts.</div>
+    </div>
+  </label>
+
+  <label class="mode-option" data-mode="moderate">
+    <input type="radio" name="mode" value="moderate">
+    <div class="mode-info">
+      <div class="mode-name">Moderate <span class="badge badge-balanced">Balanced</span></div>
+      <div class="mode-desc">Scans all elements for obvious overflow issues.</div>
+    </div>
+  </label>
+
+  <label class="mode-option" data-mode="aggressive">
+    <input type="radio" name="mode" value="aggressive">
+    <div class="mode-info">
+      <div class="mode-name">Aggressive <span class="badge badge-chaos">Chaos</span></div>
+      <div class="mode-desc">Full scan including transforms, margins, positioned elements.</div>
+    </div>
+  </label>
+
+  <div class="footer">Reload page to apply changes</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -3,10 +3,13 @@
 A lightweight Manifest V3 extension that hunts down DOM nodes causing horizontal overflow and constrains them so pages stop spawning annoying horizontal scrollbars. When the script runs, it flashes a tiny emoji badge so you know the fix did its thing.
 
 ## Features
-- Scans every element for overflow past the viewport and applies a scoped CSS fix.
-- Automatically toggles `body` overflow rules for a last-resort safety net.
-- Shows a transient badge (`🛠️` when fixes are applied, `✅` when none are needed) to confirm the extension ran.
-- Zero permissions and instant load thanks to a single content script.
+- **Three detection modes** selectable via popup:
+  - **Conservative (Safe)**: Fixes only body/html elements. Lowest risk of breaking layouts.
+  - **Moderate (Balanced)**: Scans all elements for obvious overflow issues.
+  - **Aggressive (Chaos)**: Full scan including CSS transforms, negative margins, 100vw widths, and positioned elements.
+- **MutationObserver** watches for dynamic content (SPAs, lazy loading) and re-runs detection automatically.
+- Shows a transient badge with fix count and current mode (e.g., `🛠️ Fixed 3 [Chaos]`).
+- Click the extension icon to switch modes; changes apply on page reload.
 
 ## Development
 1. Clone or download this repo.
